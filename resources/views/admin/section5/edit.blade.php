@@ -1,0 +1,137 @@
+@extends('adminlte::page')
+
+@section('content')
+
+@if (session('success'))
+<h6 class="alert alert-success">{{ session('success') }}</h6>
+@endif
+@error('title')
+<h6 class="alert alert-danger">{{ $message }}</h6>
+@enderror
+
+<br />
+<div class="container w-100 p-4">
+    <div class="card border border-dark">
+        <div class="card-header bg-dark">
+            <h5>{{config('app.nav_section5')}}</h5>
+        </div>
+        <div class="card-body">
+
+            <form action="{{ route('section5.update',['section5'=>$section5->id]) }}" method="POST" enctype="multipart/form-data">
+                @method('PATCH')
+                @csrf
+                <div class="mb-3 table-responsive">
+                    <label for="title" class="form-label"><strong>Descripción: </strong></label>
+                    <table class="w-100">
+                        <tr class="text-center">
+                            <td>
+                                <input type="text" name="description" class="form-control mr-5 w-100" value="{{ $section5->description }}">
+                                @error('description') <div class="text-danger text-center">Valor requerido</div>@enderror
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+            <br />
+
+
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr class="bg-light table-sm">
+                            <th scope="col">Elemento</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col" class="text-center">U/M</th>
+                            <th scope="col" class="text-center">Cantidad</th>
+                            <th scope="col" class="text-center">Precio</th>
+                            <th scope="col" class="text-center">Importe</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" class="bg-dark text-center"><a href="{{ route('section5_tabla.create')}}">
+                                    <i class="fa fa-file fa-lg"></i>
+                                </a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
+                        $contador = 0;
+                        ?>
+
+                        @foreach ($section5_tabla as $section5_tab)
+                        <tr>
+                            <td>
+                                {{ $section5_tab->elemento }}
+                            </td>
+
+                            <td>
+                                {{ $nombres_categ[$contador] }}
+                            </td>
+
+                            <td>
+                                {{ $section5_tab->descripcion }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ $section5_tab->u_m }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ $section5_tab->cantidad }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ $section5_tab->precio }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ $section5_tab->importe }}
+                            <td>
+
+                            </td>
+
+                            <td class="align-middle">
+                                <a href="{{ route('section5_tabla.edit',['section5_tabla'=>$section5_tab->id]) }}">
+                                    <button class="btn btn-link">
+                                        <i class="fa fa-edit fa-lg" style="color:#31ab59"></i>
+                                    </button>
+                                </a>
+                            </td>
+
+                            <td class="align-middle">
+                                <form action="{{ route('section5_tabla.destroy',[$section5_tab->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-link" onclick="return confirm('¿Seguro desea eliminar el elemento: {{$section5_tab->elemento}}?')">
+                                        <i class="fa fa-trash fa-lg" style="color:#f16d6d"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+
+                        <?php
+                        $contador++;
+                        ?>
+
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@endsection
