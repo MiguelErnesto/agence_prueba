@@ -61,7 +61,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             /* recorta texto si muy largo */
-            background-color: #2F4F4F;
+            background-color: #4d5c5c;
             color: white;
             font-weight: bold;
         }
