@@ -752,6 +752,9 @@
     <SCRIPT language=JavaScript src="inc/menu_array.js.htm" type=text/javascript></SCRIPT>
     <SCRIPT language=JavaScript src="inc/menu_script.js" type=text/javascript></SCRIPT>
     <script async type="module" src="js/consultores.js"></script>
+    <script async type="module" src="js/grafico_barras.js"></script>
+    <script async type="module" src="js/grafico_pizza.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </HEAD>
 
@@ -864,13 +867,13 @@
                                                                 style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; center; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_relatorio.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #dde4ed;                                                                "
                                                                 type="submit" value="Relatório" id="btnRelatorio" />
                                                         </form>
-                                                        <form action="con_desem_consultor_graf.htm">
-                                                            <input class="elemento"
+                                                        <form action="">
+                                                            <input id="btnGraficoBarras" class="elemento"
                                                                 style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_grafico.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #dde4ed"
                                                                 type="submit" value="Gráfico" name="btSalvar222" />
                                                         </form>
                                                         <form action="con_desem_consultor_pizza.htm">
-                                                            <input class="elemento"
+                                                            <input id="btnGraficoPizza" class="elemento"
                                                                 style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_pizza.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #dde4ed"
                                                                 type="submit" value="Pizza" name="btSalvar222" />
                                                         </form>
@@ -922,15 +925,27 @@
                                 <br />
                                 <br />
 
-
                                 {{-- Resultados relatorio --}}
-                                <div id='divResultadosRelatorio' class=''>
+                                <div id='divResultadosRelatorio'>
                                     <div id='tableResultadosRelatorio'>
 
                                     </div>
                                 </div>
-                                {{-- END Resultados relatorio --}}
 
+                                {{-- Grafico barras --}}
+                                <div id='divGraficoBarras'>
+                                    <div id='divResultadosGraficoBarras'>
+                                        <canvas id="graficoBarras" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+
+                                {{-- Grafico pizza --}}
+                                <div id='divGraficoPizza'>
+                                    <div id='divResultadosGraficoPizza' class="text-center">
+                                        <canvas id="graficoPizza" width="400" height="200"
+                                            style="max-width: 800px; max-height: 800px;display: inline-block;"></canvas>
+                                    </div>
+                                </div>
 
 
                                 <p>&nbsp;</p>

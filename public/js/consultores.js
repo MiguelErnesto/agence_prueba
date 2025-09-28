@@ -1,4 +1,3 @@
-//import Utils from "../services/utils.js";
 import Request from "./request.js";
 
 export default class Consultores {
@@ -11,9 +10,11 @@ export default class Consultores {
     this.tableResultadosRelatorio = document.getElementById(
       "tableResultadosRelatorio"
     );
-
     this.inpFechaInicio = document.getElementById("inpFechaInicio");
     this.inpFechaFin = document.getElementById("inpFechaFin");
+    this.divGraficoBarras = document.getElementById("divGraficoBarras");
+    this.divGraficoPizza = document.getElementById("divGraficoPizza");
+
     this.listeners();
     this.establecerFechasHoy();
   }
@@ -27,6 +28,8 @@ export default class Consultores {
         alert("Não há consultor selecionado.");
         return false;
       }
+      this.divGraficoBarras.classList.add("d-none");
+      this.divGraficoPizza.classList.add("d-none");
       this.tableResultadosRelatorio.innerHTML = "";
       this.onRelatorio();
     });
