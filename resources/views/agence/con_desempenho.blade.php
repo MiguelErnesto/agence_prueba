@@ -4,8 +4,16 @@
 <HTML>
 
 <HEAD>
+    <!-- HTML HEADER -->
+    <META http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <META content="NOINDEX, NOFOLLOW" name=ROBOTS>
+    <META http-equiv=Content-Language content=pt-br>
+    <META http-equiv=pragma content=no-cache>
+    <META http-equiv=cache-Control content="no cache">
+    <META http-equiv=expires content="sat, 04 dec 1993 21:29:02 gmt">
+    <META http-equiv=Refresh content="600; url=main.php">
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="BasterBoom.">
@@ -16,7 +24,10 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <TITLE>CAOL - Controle de Atividades Online - Agence Interativa</TITLE>
+    <META content="MSHTML 6.00.2800.1106" name=GENERATOR>
 
+    <!-- CSS STYLES -->
+    <link rel="stylesheet" href="css/style.css">
     <style>
         #sub1,
         #sub2,
@@ -28,6 +39,72 @@
         }
     </style>
 
+    <style>
+        .tabla-profesional {
+            border-collapse: collapse;
+            /* Para unificar bordes */
+            width: 100%;
+            border: 3px solid #333;
+            /* borde externo grueso */
+            table-layout: fixed;
+            /* fuerza columnas igual ancho */
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .th1 {
+            border: 1px solid #999;
+            /* bordes internos finos */
+            padding: 2px;
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* recorta texto si muy largo */
+            background-color: #2F4F4F;
+            color: white;
+            font-weight: bold;
+        }
+
+        .th2 {
+            border: 1px solid #999;
+            /* bordes internos finos */
+            padding: 2px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* recorta texto si muy largo */
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        .tdRow {
+            border: 1px solid #999;
+            /* bordes internos finos */
+            padding: 2px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* recorta texto si muy largo */
+        }
+
+        .tdSaldo {
+            border: 1px solid #999;
+            /* bordes internos finos */
+            padding: 6px;
+            text-align: right;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* recorta texto si muy largo */
+            font-weight: bold;
+        }
+    </style>
+
+
+    <!-- JS SCRIPTS  -->
     <script language='javascript' src="js/popcalendar.js"></script>
     <SCRIPT language="JavaScript">
         //
@@ -87,7 +164,6 @@
         }
         //-->
     </script>
-
     <SCRIPT LANGUAGE="JavaScript">
         // selecione e mostra o campo
         catnumber = 1
@@ -147,7 +223,6 @@
         //  fim do seleciona e mostra campo 
         // -- >
     </script>
-
     <SCRIPT language=JavaScript src="js/cor_fundo.js" type=text/javascript></SCRIPT>
     <script language="JavaScript">
         //
@@ -634,29 +709,14 @@
         //  fim de validacao de email -->
         //-->
     </SCRIPT>
-
-
+    <SCRIPT language=JavaScript src="inc/menu_array.js.htm" type=text/javascript></SCRIPT>
+    <SCRIPT language=JavaScript src="inc/menu_script.js" type=text/javascript></SCRIPT>
     <script async type="module" src="js/consultores.js"></script>
 
-    <!-- HTML HEADER -->
-    <META http-equiv=Content-Type content="text/html; charset=windows-1252">
-    <META content="NOINDEX, NOFOLLOW" name=ROBOTS>
-    <META http-equiv=Content-Language content=pt-br>
-    <META http-equiv=pragma content=no-cache>
-    <META http-equiv=cache-Control content="no cache">
-    <META http-equiv=expires content="sat, 04 dec 1993 21:29:02 gmt">
-    <META http-equiv=Refresh content="600; url=main.php">
-    <link href="css/style.css" type="text/css" rel="stylesheet" />
-
-
-    <SCRIPT language=JavaScript src="inc/menu_array.js.htm" type=text/javascript></SCRIPT>
-
-    <SCRIPT language=JavaScript src="inc/menu_script.js" type=text/javascript></SCRIPT>
-
-    <META content="MSHTML 6.00.2800.1106" name=GENERATOR>
 </HEAD>
 
 <BODY>
+    {{-- table header --}}
     <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
         <TBODY>
             <TR>
@@ -693,33 +753,23 @@
             </TR>
         </TBODY>
     </TABLE>
+
+    {{-- table body --}}
     <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
         <TBODY>
             <TR>
                 <TD noWrap width=10><IMG src="inc/spacer.gif" width=10></TD>
+                {{-- datos del body --}}
                 <TD width="100%">
                     <table cellspacing=0 cellpadding=0 width="100%" border=0>
                         <tr>
                             <td class=index
                                 style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px"
                                 valign=top>
+
+                                {{-- elementos visuales de la entrada de datos --}}
                                 <table border="0" width="100%" cellspacing="0" cellpadding="0">
                                     <tr>
-
-
-                                        {{-- Para as abas ficarem com o visual apresentado na página, é necessário colocar os
-                                        inputs
-                                        dentro de uma tabela. Essa tabela faz o papel de grade e gera algumas linhas pra
-                                        completar
-                                        o layout.
-
-                                        Importante:
-                                        Note the a célula onde consta o botao principal (selecionado) n&atilde;o leva a
-                                        classe CEL_TAB.
-
-                                        Recomendo criar uma funcao/classe para gerar essas Abas com esse layout. --}}
-
-
                                         <td nowrap valign="bottom" align="center" class="cel_tab" height="35"><input
                                                 type="submit" value name="nothing2" class="nothing">
                                             &nbsp;&nbsp;</td>
@@ -821,12 +871,9 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
+                                {{-- end elementos visuales de la entrada de datos  --}}
 
                                 <br />
-
-
-
 
 
                                 {{-- Resultados relatorio --}}
