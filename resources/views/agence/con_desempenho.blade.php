@@ -852,7 +852,7 @@
                                                 <font color="black" class="px-3">
                                                     De: &nbsp;<input id='inpFechaInicio' type="month"
                                                         class="elemento" />
-                                                    &nbsp;&nbsp;&nbsp;Até:&nbsp; <input id='inpFechaFin'
+                                                    &nbsp;&nbsp;&nbsp;a:&nbsp;&nbsp; <input id='inpFechaFin'
                                                         type="month" class="elemento" />
                                                 </font>
                                             </td>
