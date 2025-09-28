@@ -851,9 +851,9 @@
                                             <td style="border: 1px solid #999;">
                                                 <font color="black" class="px-3">
                                                     De: &nbsp;<input id='inpFechaInicio' type="month"
-                                                        class="elemento" />
+                                                        class="elemento px-3" />
                                                     &nbsp;&nbsp;&nbsp;a:&nbsp;&nbsp; <input id='inpFechaFin'
-                                                        type="month" class="elemento" />
+                                                        type="month" class="elemento  px-3" />
                                                 </font>
                                             </td>
                                             <td width="20%" rowspan="2" style="border: 1px solid #999;">
