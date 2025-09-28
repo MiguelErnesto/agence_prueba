@@ -107,9 +107,10 @@ class AgenceController extends Controller
             ->whereBetween('cf.data_emissao', [$fechaInicio, $fechaFin])
             ->get();
         $comissao_cn = count($query) > 0 ? $query[0]->comissao_cn : 0;
-        $no_usuario = count($query) > 0 ? $query[0]->no_usuario : 0;
+        $dataExits = count($query) > 0 ? true : false;
 
         return [
+            'dataExits' => $dataExits,
             'data' => $grouped,
             'co_usuario' => $consultor,
             'no_usuario' => $nombreUsuario->no_usuario,

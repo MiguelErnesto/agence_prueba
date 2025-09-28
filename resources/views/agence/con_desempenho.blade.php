@@ -90,6 +90,17 @@
             /* recorta texto si muy largo */
         }
 
+        .tabla-profesional td {
+            border: 1px solid #999;
+            /* bordes internos finos */
+            padding: 4px;
+            text-align: right;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* recorta texto si muy largo */
+        }
+
         .tdSaldo {
             border: 1px solid #999;
             /* bordes internos finos */
