@@ -22,6 +22,11 @@ export default class Consultores {
     this.btnRelatorio.addEventListener("click", (evt) => {
       evt.stopPropagation();
       evt.preventDefault();
+      const selectedValues = Array.from(this.list2.options).map((o) => o.value);
+      if (selectedValues.length == 0) {
+        alert("Não há consultor selecionado.");
+        return false;
+      }
       this.tableResultadosRelatorio.innerHTML = "";
       this.onRelatorio();
     });
@@ -34,8 +39,8 @@ export default class Consultores {
     const mm = String(hoy.getMonth() + 1).padStart(2, "0");
     const dd = String(hoy.getDate()).padStart(2, "0");
 
-    this.inpFechaInicio.value = `${yyyy}-${mm}-${dd}`;
-    this.inpFechaFin.value = `${yyyy}-${mm}-${dd}`;
+    this.inpFechaInicio.value = `${yyyy}-${mm}`;
+    this.inpFechaFin.value = `${yyyy}-${mm}`;
   };
 
   onRelatorio = async () => {
@@ -205,8 +210,8 @@ export default class Consultores {
   relatorio = async (evt) => {
     const selectedValues = Array.from(this.list2.options).map((o) => o.value);
     console.log(selectedValues);
-    let fechaInicio = this.inpFechaInicio.value;
-    let fechaFin = this.inpFechaFin.value;
+    let fechaInicio = this.inpFechaInicio.value + "-01";
+    let fechaFin = this.inpFechaFin.value + "-01";
 
     let data = {
       consultoresSelected: selectedValues,

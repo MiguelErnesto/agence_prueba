@@ -39,12 +39,13 @@
         }
     </style>
 
+    {{-- tabla de resultados --}}
     <style>
         .tabla-profesional {
             border-collapse: collapse;
             /* Para unificar bordes */
             width: 100%;
-            border: 3px solid #333;
+            border: 1px solid #333;
             /* borde externo grueso */
             table-layout: fixed;
             /* fuerza columnas igual ancho */
@@ -62,7 +63,8 @@
             text-overflow: ellipsis;
             /* recorta texto si muy largo */
             background-color: #4d5c5c;
-            color: white;
+            background: #9ab0cc;
+            color: rgb(60, 56, 56);
             font-weight: bold;
         }
 
@@ -114,6 +116,33 @@
         }
     </style>
 
+    <style>
+        .elemento {
+            background: #dde4ed;
+            /* Fondo blanco limpio */
+            border: 1px solid #4A90E2;
+            /* Borde azul elegante */
+            border-radius: 12px;
+            /* Bordes redondeados suaves */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Sombra ligera para profundidad */
+            padding: 2px;
+            /* Espaciado interior cómodo */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Fuente moderna */
+            color: #333;
+            /* Texto oscuro para buena lectura */
+            transition: box-shadow 0.3s ease;
+            /* Animación suave para hover */
+        }
+
+        .elemento:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* Sombra más intensa al pasar el cursor */
+            border-color: #357ABD;
+            /* Color del borde más fuerte */
+        }
+    </style>
 
     <!-- JS SCRIPTS  -->
     <script language='javascript' src="js/popcalendar.js"></script>
@@ -764,6 +793,7 @@
             </TR>
         </TBODY>
     </TABLE>
+    <br />
 
     {{-- table body --}}
     <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
@@ -787,13 +817,13 @@
                                         <form action="\con_desempenho">
                                             <td nowrap valign="bottom" align="center"><span class="cel_tab">
                                                     <input type="submit" value="Por Consultor" name="act22223"
-                                                        class="tab_current">
+                                                        class="tab_current elemento">
                                                 </span></td>
                                         </form>
                                         <td nowrap valign="bottom" align="center" class="cel_tab">&nbsp;&nbsp;</td>
                                         <form action="/con_desempenho_aba_cliente">
                                             <td nowrap valign="bottom" align="center"><input type="submit"
-                                                    value="Por Cliente" name="act2" class="tab"> </td>
+                                                    value="Por Cliente" name="act2" class="tab elemento"> </td>
                                         </form>
                                         <td nowrap valign="bottom" align="center" class="cel_tab">&nbsp;&nbsp;</td>
                                         <form action="cadastro_boleto_carregado_cancelado.htm">
@@ -810,36 +840,38 @@
                                 </table>
                                 <br>
                                 <table width="100%" cellpadding="3" cellspacing="1" bgcolor="#cccccc"
-                                    id="pesquisaAvancada">
+                                    style="border: 1px solid #999;" id="pesquisaAvancada">
                                     <tbody>
                                         <tr bgcolor="#fafafa">
-                                            <td width="10%" nowrap="nowrap" bgcolor="#efefef">
-                                                <div align="right"><strong>Per&iacute;odo</strong></div>
+                                            <td style="border: 1px solid #999;" height="40px" width="10%"
+                                                nowrap="nowrap" bgcolor="#efefef">
+                                                <div align="right" class="px-3"><strong>Per&iacute;odo</strong>
+                                                </div>
                                             </td>
-                                            <td>
-                                                <font color="black">
-                                                    De: &nbsp;<input id='inpFechaInicio' type="date"
-                                                        value="today" />
+                                            <td style="border: 1px solid #999;">
+                                                <font color="black" class="px-3">
+                                                    De: &nbsp;<input id='inpFechaInicio' type="month"
+                                                        class="elemento" />
                                                     &nbsp;&nbsp;&nbsp;Até:&nbsp; <input id='inpFechaFin'
-                                                        type="date" value="today" />
+                                                        type="month" class="elemento" />
                                                 </font>
                                             </td>
-                                            <td width="20%" rowspan="2">
+                                            <td width="20%" rowspan="2" style="border: 1px solid #999;">
                                                 <div align="center">
                                                     <font color="black">
                                                         <form>
-                                                            <input
-                                                                style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_relatorio.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC"
+                                                            <input class="elemento"
+                                                                style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; center; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_relatorio.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #dde4ed;                                                                "
                                                                 type="submit" value="Relatório" id="btnRelatorio" />
                                                         </form>
                                                         <form action="con_desem_consultor_graf.htm">
-                                                            <input
-                                                                style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_grafico.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC"
+                                                            <input class="elemento"
+                                                                style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_grafico.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #dde4ed"
                                                                 type="submit" value="Gráfico" name="btSalvar222" />
                                                         </form>
                                                         <form action="con_desem_consultor_pizza.htm">
-                                                            <input
-                                                                style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_pizza.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #CCCCCC"
+                                                            <input class="elemento"
+                                                                style="BORDER-RIGHT: 1px outset; BORDER-TOP: 1px outset; FONT-SIZE: 8pt; BACKGROUND-POSITION-Y: center; LEFT: 120px; BACKGROUND-IMAGE: url(img/icone_pizza.png); BORDER-LEFT: 1px outset; WIDTH: 110px; BORDER-BOTTOM: 1px outset; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Tahoma, Verdana, Arial; HEIGHT: 22px; BACKGROUND-COLOR: #dde4ed"
                                                                 type="submit" value="Pizza" name="btSalvar222" />
                                                         </form>
                                                     </font>
@@ -847,14 +879,15 @@
                                             </td>
                                         </tr>
                                         <tr bgcolor="#fafafa">
-                                            <td nowrap="nowrap" bgcolor="#efefef">
-                                                <div align="right"><strong>Consultores</strong></div>
+                                            <td nowrap="nowrap" bgcolor="#efefef" style="border: 1px solid #999;">
+                                                <div align="right" class="px-3"><strong>Consultores</strong></div>
                                             </td>
                                             <td>
                                                 <table align="center">
                                                     <tr>
                                                         <td><select multiple size="8" name="list1"
-                                                                id="list1" style="width:280">
+                                                                class="elemento px-2" id="list1"
+                                                                style="width:280">
 
                                                                 @foreach ($consultores as $consultor)
                                                                     <option value="{{ $consultor->co_usuario }}">
@@ -865,13 +898,15 @@
                                                         </td>
                                                         <td align="center" valign="middle"><input name="button"
                                                                 type="button" onClick="move(list1,list2)"
-                                                                value=">>">
+                                                                class='elemento px-2 m-2' value=">>">
                                                             <br>
                                                             <input name="button" type="button"
-                                                                onClick="move(list2,list1)" value="<<">
+                                                                class='elemento px-2 m-2' onClick="move(list2,list1)"
+                                                                value="<<">
                                                         </td>
                                                         <td><select multiple size="8" name="list2"
-                                                                id="list2" style="width:280">
+                                                                id="list2" class="elemento  px-2"
+                                                                style="width:280">
                                                             </select>
                                                             <input type="hidden" name="lista_analista"
                                                                 value="">
@@ -884,6 +919,7 @@
                                 </table>
                                 {{-- end elementos visuales de la entrada de datos  --}}
 
+                                <br />
                                 <br />
 
 
@@ -908,6 +944,7 @@
                             </td>
                         </tr>
                     </table>
+
                 </TD>
                 <TD noWrap width=10><IMG src="inc/spacer.gif" width=10></TD>
             </TR>
