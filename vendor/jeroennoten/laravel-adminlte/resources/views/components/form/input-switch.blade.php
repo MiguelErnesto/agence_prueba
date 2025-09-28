@@ -1,10 +1,16 @@
 @extends('adminlte::components.form.input-group-component')
 
+{{-- Set errors bag internallly --}}
+
+@php($setErrorsBag($errors ?? null))
+
+{{-- Set input group item section --}}
+
 @section('input_group_item')
 
     {{-- Input Switch --}}
-    <input type="checkbox" id="{{ $id }}" name="{{ $name }}" value="true"
-        {{ $attributes->merge(['class' => $makeItemClass()]) }}>
+    <input type="checkbox" id="{{ $id }}" name="{{ $name }}"
+        {{ $attributes->merge(['class' => $makeItemClass(), 'value' => 'true']) }}>
 
 @overwrite
 
@@ -14,7 +20,13 @@
 <script>
 
     $(() => {
-        $('#{{ $id }}').bootstrapSwitch( @json($config) );
+
+        let usrCfg = @json($config);
+        $('#{{ $id }}').bootstrapSwitch(usrCfg);
+
+        // Workaround to ensure correct state setup on initialization.
+
+        $('#{{ $id }}').bootstrapSwitch('state', usrCfg.state ?? false);
 
         // Add support to auto select the previous submitted value in case of
         // validation errors.

@@ -22,6 +22,13 @@ class ProfileRowItem extends Component
     public $text;
 
     /**
+     * An extra tooltip for the text of the item.
+     *
+     * @var string
+     */
+    public $textTooltip;
+
+    /**
      * A Font Awesome icon for the item.
      *
      * @var string
@@ -39,7 +46,8 @@ class ProfileRowItem extends Component
      * The badge theme for the text attribute. When used, the text attribute
      * will be wrapped inside a badge of the configured theme. Available themes
      * are: light, dark, primary, secondary, info, success, warning, danger or
-     * any other AdminLTE color like lighblue or teal.
+     * any other AdminLTE color like lighblue or teal. You can also prepend
+     * the 'pill-' token for a pill badge, for example: 'pill-info'.
      *
      * @var string
      */
@@ -54,20 +62,30 @@ class ProfileRowItem extends Component
     public $url;
 
     /**
+     * The target element for the URL (title or text).
+     *
+     * @var string
+     */
+    public $urlTarget;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
     public function __construct(
         $title = null, $text = null, $icon = null, $size = 12,
-        $badge = null, $url = null
+        $badge = null, $url = null, $urlTarget = 'title',
+        $textTooltip = null
     ) {
         $this->title = UtilsHelper::applyHtmlEntityDecoder($title);
         $this->text = UtilsHelper::applyHtmlEntityDecoder($text);
+        $this->textTooltip = UtilsHelper::applyHtmlEntityDecoder($textTooltip);
         $this->icon = $icon;
         $this->size = $size;
         $this->badge = $badge;
         $this->url = $url;
+        $this->urlTarget = $urlTarget;
     }
 
     /**
@@ -80,7 +98,12 @@ class ProfileRowItem extends Component
         $classes = ['float-right'];
 
         if (isset($this->badge)) {
-            $classes[] = "badge bg-{$this->badge}";
+            $badgeMode = str_starts_with($this->badge, 'pill-')
+                ? 'badge-pill'
+                : 'badge';
+
+            $badgeTheme = str_replace('pill-', '', $this->badge);
+            $classes[] = "{$badgeMode} bg-{$badgeTheme}";
         }
 
         return implode(' ', $classes);

@@ -19,6 +19,7 @@ use App\Models\section5_tabla;
 use App\Models\section6;
 use App\Models\social_network;
 use App\Models\footer;
+use App\Models\caoAcompanhamentoSistema;
 
 include 'InitialValues.php';
 
@@ -31,63 +32,8 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $section1 = section1::all();
-
-        $section2 = section2::all();
-        $section2_imgs = section2_img::all();
-
-        if ($section2_imgs->isEmpty()) {
-            config(['app.nav_section2_no_empty' => 0]);
-        } else {
-            config(['app.nav_section2_no_empty' => 1]);
-        }
-
-        $section3 = section3::all();
-        $section3_categories = section3_categories::all();
-        $section3_category_images = section3_category_images::all();
-
-        $array_categories[0] = '';
-        foreach ($section3_categories as $section3_ctg) {
-            $array_categories[$section3_ctg->id] = $section3_ctg->name;
-        }
-
-        $section4 = section4::all();
-        $section4_images = section4_images::all();
-
-        if ($section4_images->isEmpty()) {
-            config(['app.nav_section4_no_empty' => 0]);
-        } else {
-            config(['app.nav_section4_no_empty' => 1]);
-        }
-
-        $section5 = section5::all();
-        $section5_tabla = section5_tabla::all();
-
-        $section6 = section6::all()[0];
-
-        $footer = footer::all()[0];
-
-        $social_network = social_network::all();
-
-        return view(
-            'welcome',
-            compact(
-                'section1',
-                'section2',
-                'section2_imgs',
-                'section3',
-                'section3_categories',
-                'section3_category_images',
-                'section4',
-                'section4_images',
-                'section5',
-                'section5_tabla',
-                'array_categories',
-                'section6',
-                'footer',
-                'social_network'
-            )
-        );
+        $query = caoAcompanhamentoSistema::all();
+        return view('agence.con_desempenho', compact('query'));
     }
 
     /**

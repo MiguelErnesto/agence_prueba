@@ -5,7 +5,7 @@ use App\Models\front_preview;
 use App\Models\navbar;
 use Illuminate\Support\Facades\Schema;
 
-if (Schema::hasTable('mains')) {
+/* if (Schema::hasTable('mains')) {
     $main = main::all();
     config(['app.nombre_principal' => $main[0]->name]);
 
@@ -26,4 +26,4 @@ if (Schema::hasTable('mains')) {
     config(['app.nav_chk4' => $navbar[0]->chk4]);
     config(['app.nav_chk5' => $navbar[0]->chk5]);
     config(['app.nav_chk6' => $navbar[0]->chk6]);
-}
+} */

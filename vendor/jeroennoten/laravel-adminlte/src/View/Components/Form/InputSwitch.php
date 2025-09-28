@@ -8,7 +8,7 @@ class InputSwitch extends InputGroupComponent
 
     /**
      * The Bootstrap Switch plugin configuration parameters. Array with
-     * key => value pairs, where the key should be an existing configuration
+     * 'key => value' pairs, where the key should be an existing configuration
      * property of the plugin.
      *
      * @var array
@@ -24,7 +24,8 @@ class InputSwitch extends InputGroupComponent
     public function __construct(
         $name, $id = null, $label = null, $igroupSize = null, $labelClass = null,
         $fgroupClass = null, $igroupClass = null, $disableFeedback = null,
-        $errorKey = null, $config = [], $enableOldSupport = null
+        $errorKey = null, $config = [], $isChecked = null,
+        $enableOldSupport = null
     ) {
         parent::__construct(
             $name, $id, $label, $igroupSize, $labelClass, $fgroupClass,
@@ -32,6 +33,11 @@ class InputSwitch extends InputGroupComponent
         );
 
         $this->config = is_array($config) ? $config : [];
+
+        if (isset($isChecked)) {
+            $this->config['state'] = ! empty($isChecked);
+        }
+
         $this->enableOldSupport = isset($enableOldSupport);
     }
 
@@ -49,7 +55,7 @@ class InputSwitch extends InputGroupComponent
             $classes[] = "input-group-{$this->size}";
         }
 
-        if ($this->isInvalid() && ! isset($this->disableFeedback)) {
+        if ($this->isInvalid()) {
             $classes[] = 'adminlte-invalid-iswgroup';
         }
 
@@ -61,7 +67,8 @@ class InputSwitch extends InputGroupComponent
     }
 
     /**
-     * Make the class attribute for the input group item.
+     * Make the class attribute for the input group item. Note we overwrite
+     * the method of the parent class.
      *
      * @return string
      */
@@ -69,7 +76,7 @@ class InputSwitch extends InputGroupComponent
     {
         $classes = [];
 
-        if ($this->isInvalid() && ! isset($this->disableFeedback)) {
+        if ($this->isInvalid()) {
             $classes[] = 'is-invalid';
         }
 
