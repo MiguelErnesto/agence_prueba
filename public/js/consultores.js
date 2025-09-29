@@ -186,6 +186,9 @@ export default class Consultores {
             saldo_comissao += comissao;
             saldo_lucro += lucro;
           }
+          valor = 0;
+          total_imp_inc = 0;
+          receita_liquida = 0;
         });
         tableFooter = `
             <tr>
