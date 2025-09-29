@@ -133,12 +133,27 @@ class AgenceController extends Controller
         string $fechaFin
     ): array {
         $inicio = Carbon::parse($fechaInicio)->firstOfMonth();
+        $mesActual = Carbon::parse($fechaInicio)->firstOfMonth();
         $fin = Carbon::parse($fechaFin)->firstOfMonth();
         $meses = [];
 
         while ($inicio <= $fin) {
-            $meses[] = $inicio->format('Y-m');
+            $mesActual = $inicio->format('Y-m');
+            $found = false;
+            foreach ($datos as $index => $dato) {
+                if ($dato['dataExist']) {
+                    if (isset($dato['data'][$mesActual])) {
+                        $found = true;
+                    }
+                }
+            }
+            if ($found) {
+                $meses[] = $mesActual;
+            }
             $inicio->addMonth();
+            $found = false;
+            /* $meses[] = $inicio->format('Y-m');
+             $inicio->addMonth(); */
         }
 
         return $meses;
@@ -192,6 +207,8 @@ class AgenceController extends Controller
             $fechaFin
         );
 
+        $xmlMeses = '';
+
         foreach ($datos as $index => $dato) {
             if ($dato['dataExist']) {
                 //Datos por Consultores para cada mes involucrado en el periodo
@@ -227,17 +244,11 @@ class AgenceController extends Controller
 
                         $xmlBody .=
                             '    <set value="' .
-                            htmlspecialchars(
-                                number_format($receita_liquida, 2, ',', '.')
-                            ) .
+                            $receita_liquida .
                             '" /> ' .
                             "\n";
                     } else {
-                        $xmlBody .=
-                            '    <set value="' .
-                            htmlspecialchars(number_format(0, 2, ',', '.')) .
-                            '" /> ' .
-                            "\n";
+                        $xmlBody .= '    <set value="0" /> ' . "\n";
                     }
                 }
 
