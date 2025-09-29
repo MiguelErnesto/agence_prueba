@@ -105,38 +105,42 @@ export default class Consultores {
   };
 
   render = (res) => {
+    var saldo_receita_liquida = 0;
+    var saldo_custo_fixo = 0;
+    var saldo_comissao = 0;
+    var saldo_lucro = 0;
     res.forEach((itemRes) => {
+      //SALDO TOTAL
+      saldo_receita_liquida = 0;
+      saldo_custo_fixo = 0;
+      saldo_comissao = 0;
+      saldo_lucro = 0;
+
       if (itemRes["dataExits"]) {
         var tableHeader = `
-            <table class="tabla-profesional">
-            <thead>
-            <tr>
-            <th colspan=5 class='th1'>${itemRes["no_usuario"]}</th>    
-          </tr>
-              <tr>
-                <th class='th2'>Per&iacute;odo</th>
-                <th class='th2'>Receita L&iacute;quida</th>
-                <th class='th2'>Custo Fixo </th>
-                <th class='th2'>Comiss&atilde;o</th>
-                <th class='th2'>Lucro</th>
-              </tr>
-            </thead>
-            <tbody>
-            `;
+        <table class="table table-bordered align-middle">
+      <thead>
+        <tr>
+          <th colspan="5" class="bg-light fs-6">${itemRes["no_usuario"]}</th>
+        </tr>
+       </thead>
+        <tr>
+          <td class="fw-bold text-center" style="width: 20%;">Período</td>
+          <td class="fw-bold text-center" style="width: 20%;">Receita Líquida</td>
+          <td class="fw-bold text-center" style="width: 20%;">Custo Fixo</td>
+          <td class="fw-bold text-center" style="width: 20%;">Comissão</td>
+          <td class="fw-bold text-center" style="width: 20%;">Lucro</td>
+        </tr>
+      <tbody>`;
         var tableRows = "";
         var tableFooter = "";
         var tableEnd = "</tbody></table><br/>";
-
-        //SALDO TOTAL
-        var saldo_receita_liquida = 0;
-        var saldo_custo_fixo = 0;
-        var saldo_comissao = 0;
-        var saldo_lucro = 0;
 
         let meses = this.obtenerMesesEntreFechas(
           itemRes["fechaInicio"],
           itemRes["fechaFin"]
         );
+
         var valor = 0;
         var total_imp_inc = 0;
         var receita_liquida = 0;
@@ -144,6 +148,7 @@ export default class Consultores {
         var comissao_cn = itemRes["comissao_cn"];
         var comissao = 0;
         var lucro = 0;
+
         meses.forEach((item) => {
           if (typeof itemRes["data"][item] !== "undefined") {
             console.log(itemRes["data"][item]);
@@ -156,20 +161,22 @@ export default class Consultores {
             lucro = valor - total_imp_inc - (custo_fixo + comissao);
             tableRows =
               tableRows +
-              `<tr bgcolor=#fafafa>
-                  <td nowrap class='tdRow text-left'>
+              `<tr>
+                  <td class="text-start">
                     ${this.formatoMesAnoPT(item)}
                   </td>
-                  <td class='tdRow'>
+                  <td class="text-end">
                       ${this.number_format(receita_liquida)}           
                   </td>
-                  <td class='tdRow'>
+                  <td class="text-end">
                     ${this.number_format(custo_fixo)} 
                   </td>
-                  <td class='tdRow'>
+                  <td class="text-end">
                     ${this.number_format(comissao)}
                   </td>
-                  <td class='${lucro < 0 ? "tdRow text-danger" : "tdRow"}'>
+                  <td class='${
+                    lucro < 0 ? "text-end text-danger" : "text-end "
+                  }'>
                       ${this.number_format(lucro)}
                   </td>
               </tr>`;
@@ -180,14 +187,18 @@ export default class Consultores {
           saldo_lucro += lucro;
         });
         tableFooter = `
-            <tr bgcolor=#efefef>
-            <td nowrap class='tdSaldo text-left'>SALDO</td>
-            <td class='tdSaldo'>${this.number_format(
+            <tr>
+            <td class="fw-bold text-left">SALDO</td>
+            <td class="fw-bold text-right">${this.number_format(
               saldo_receita_liquida
             )}</td>
-            <td class='tdSaldo'>${this.number_format(saldo_custo_fixo)}</td>
-            <td class='tdSaldo'>${this.number_format(saldo_comissao)}</td>
-            <td class='tdSaldo text-primary'>${this.number_format(
+            <td class="fw-bold text-right">${this.number_format(
+              saldo_custo_fixo
+            )}</td>
+            <td class="fw-bold text-right">${this.number_format(
+              saldo_comissao
+            )}</td>
+            <td class="fw-bold text-right text-primary">${this.number_format(
               saldo_lucro
             )}</td>
             </tr> `;
@@ -196,25 +207,37 @@ export default class Consultores {
           tableHeader + tableRows + tableFooter + tableEnd;
       } else {
         let tableSinDatos = `
-        <table class="tabla-profesional">
-        <thead>
+        <table class="table table-bordered align-middle">
+      <thead>
         <tr>
-        <th colspan=1 class='th1'>${itemRes["no_usuario"]}</th>    
-        <th colspan=4 class='th1 text-left pl-2'> Nenhum dado no período selecionado</th>    
-      </tr>
-        </thead>
-        </table>
+          <th colspan="2" style="width: 40%;" class="bg-light fs-6">${itemRes["no_usuario"]}</th>
+          <th colspan="3" class="bg-light"> Nenhum dado no período selecionado</th>
+        </tr>        
+      </thead>
+      <tbody>
         <br/>`;
         this.tableResultadosRelatorio.innerHTML += tableSinDatos;
       }
     });
   };
 
+  fechaConUltimoDiaDelMes = (yyyy_mm) => {
+    const [year, month] = yyyy_mm.split("-").map(Number);
+    // Mes en JS va de 0 (enero) a 11 (diciembre), pero aquí sumamos 1 porque queremos el siguiente mes
+    // Día 0 del siguiente mes es el último día del mes actual
+    const lastDay = new Date(year, month, 0);
+    // Formatear con ceros a la izquierda
+    const mm = (lastDay.getMonth() + 1).toString().padStart(2, "0");
+    const dd = lastDay.getDate().toString().padStart(2, "0");
+    return `${lastDay.getFullYear()}-${mm}-${dd}`;
+  };
+
   relatorio = async (evt) => {
     const selectedValues = Array.from(this.list2.options).map((o) => o.value);
     console.log(selectedValues);
+
     let fechaInicio = this.inpFechaInicio.value + "-01";
-    let fechaFin = this.inpFechaFin.value + "-01";
+    let fechaFin = this.fechaConUltimoDiaDelMes(this.inpFechaFin.value);
 
     let data = {
       consultoresSelected: selectedValues,

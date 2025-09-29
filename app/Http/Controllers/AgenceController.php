@@ -99,12 +99,15 @@ class AgenceController extends Controller
         $custo_fixo = count($query) > 0 ? $query[0]->brut_salario : 0;
 
         //comissao
+        $start = Carbon::parse($fechaInicio)->startOfDay(); // 2023-09-01 00:00:00
+        $end = Carbon::parse($fechaFin)->endOfDay(); // 2023-09-30 23:59:59
+
         $query = DB::table('cao_fatura as cf')
             ->select('cf.comissao_cn', 'cu.no_usuario')
             ->join('cao_os as co', 'co.co_os', '=', 'cf.co_os')
             ->join('cao_usuario as cu', 'cu.co_usuario', '=', 'co.co_usuario')
             ->where('cu.co_usuario', '=', $consultor)
-            ->whereBetween('cf.data_emissao', [$fechaInicio, $fechaFin])
+            ->whereBetween('cf.data_emissao', [$start, $end])
             ->get();
         $comissao_cn = count($query) > 0 ? $query[0]->comissao_cn : 0;
         $dataExits = count($query) > 0 ? true : false;
