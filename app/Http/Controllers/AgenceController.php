@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use App\Models\permissaoSistema;
 use App\Models\caoUsuario;
@@ -37,6 +38,8 @@ class AgenceController extends Controller
         }
 
         $consultores = $this->consultores();
+
+        $this->generarXmlGraficoData($result, $fechaInicio, $fechaFin);
 
         return response()->json([
             'result' => $result,
@@ -110,10 +113,10 @@ class AgenceController extends Controller
             ->whereBetween('cf.data_emissao', [$start, $end])
             ->get();
         $comissao_cn = count($query) > 0 ? $query[0]->comissao_cn : 0;
-        $dataExits = count($query) > 0 ? true : false;
+        $dataExist = count($query) > 0 ? true : false;
 
         return [
-            'dataExits' => $dataExits,
+            'dataExist' => $dataExist,
             'data' => $grouped,
             'co_usuario' => $consultor,
             'no_usuario' => $nombreUsuario->no_usuario,
@@ -122,5 +125,139 @@ class AgenceController extends Controller
             'fechaInicio' => $fechaInicio,
             'fechaFin' => $fechaFin,
         ];
+    }
+
+    private function obtenerMesesEntreFechas(
+        array $datos,
+        string $fechaInicio,
+        string $fechaFin
+    ): array {
+        $inicio = Carbon::parse($fechaInicio)->firstOfMonth();
+        $fin = Carbon::parse($fechaFin)->firstOfMonth();
+        $meses = [];
+
+        while ($inicio <= $fin) {
+            $meses[] = $inicio->format('Y-m');
+            $inicio->addMonth();
+        }
+
+        return $meses;
+    }
+
+    private function coloresParaConsultores(int $cantidad): array
+    {
+        $colores = [];
+        for ($i = 0; $i < $cantidad; $i++) {
+            // Generar un color HSL girando el matiz (hue) entre 0 y 360 grados
+            $hue = intval(($i * 360) / $cantidad);
+            $colores[] = "hsl($hue, 70%, 50%)"; // saturación 70%, luminosidad 50%
+        }
+
+        return $colores;
+    }
+
+    private function formatoAnoMesPt(string $fechaYm): string
+    {
+        $mesesPt = [
+            '01' => 'Jan',
+            '02' => 'Fev',
+            '03' => 'Mar',
+            '04' => 'Abr',
+            '05' => 'Mai',
+            '06' => 'Jun',
+            '07' => 'Jul',
+            '08' => 'Ago',
+            '09' => 'Set',
+            '10' => 'Out',
+            '11' => 'Nov',
+            '12' => 'Dez',
+        ];
+        [$ano, $mes] = explode('-', $fechaYm);
+        $abreviaturaMes = $mesesPt[$mes] ?? '???';
+
+        return $abreviaturaMes . $ano;
+    }
+
+    private function generarXmlGraficoData(
+        array $datos,
+        string $fechaInicio,
+        string $fechaFin
+    ) {
+        $xmlBody = '';
+
+        $colores = $this->coloresParaConsultores(count($datos));
+        $meses = $this->obtenerMesesEntreFechas(
+            $datos,
+            $fechaInicio,
+            $fechaFin
+        );
+
+        foreach ($datos as $index => $dato) {
+            if ($dato['dataExist']) {
+                //Datos por Consultores para cada mes involucrado en el periodo
+                $xmlBody .=
+                    '    <dataset seriesName="' .
+                    htmlspecialchars($dato['no_usuario']) .
+                    '" color="' .
+                    $colores[$index] .
+                    '" numberPrefix="R$ ">' .
+                    "\n";
+
+                $xmlMeses = '<categories>' . "\n";
+                foreach ($meses as $mes) {
+                    $annoMesPT = $this->formatoAnoMesPt($mes);
+                    $xmlMeses .=
+                        '<category name="' .
+                        $annoMesPT .
+                        '" hoverText="' .
+                        $annoMesPT .
+                        '" /> ' .
+                        "\n";
+
+                    if (isset($dato['data'][$mes])) {
+                        $valor = 0;
+                        $total_imp_inc = 0;
+                        $receita_liquida = 0;
+
+                        foreach ($dato['data'][$mes] as $ind => $d) {
+                            $valor += $d->valor;
+                            $total_imp_inc += $d->total_imp_inc;
+                        }
+                        $receita_liquida = $valor - $total_imp_inc;
+
+                        $xmlBody .=
+                            '    <set value="' .
+                            htmlspecialchars(
+                                number_format($receita_liquida, 2, ',', '.')
+                            ) .
+                            '" /> ' .
+                            "\n";
+                    } else {
+                        $xmlBody .=
+                            '    <set value="' .
+                            htmlspecialchars(number_format(0, 2, ',', '.')) .
+                            '" /> ' .
+                            "\n";
+                    }
+                }
+
+                $xmlMeses .= '<categories>' . "\n";
+                $xmlBody .= '  </dataset>' . "\n";
+            }
+        }
+
+        $xmlHead =
+            '<graph bgColor="F1f1f1" caption="Performance Comercial" subCaption="Janeiro de 2007 a Maio de 2007" showValues="0" divLineDecimalPrecision="2" formatNumberScale="2" limitsDecimalPrecision="2" PYAxisName="" SYAxisName="" decimalSeparator="," thousandSeparator="." SYAxisMaxValue="32000" PYAxisMaxValue="32000">' .
+            "\n";
+
+        $xmlFoot = '</graph>' . "\n";
+
+        $xmlAll = $xmlHead . $xmlMeses . $xmlBody . $xmlFoot;
+
+        // Guardar el XML en un archivo
+        $nombreArchivo = 'productos_manual.xml';
+        // $rutaArchivo = storage_path('/' . $nombreArchivo);
+        $rutaArchivo = public_path('/charts/' . $nombreArchivo);
+        file_put_contents($rutaArchivo, $xmlAll);
     }
 }

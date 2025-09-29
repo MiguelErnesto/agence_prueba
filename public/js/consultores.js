@@ -116,7 +116,7 @@ export default class Consultores {
       saldo_comissao = 0;
       saldo_lucro = 0;
 
-      if (itemRes["dataExits"]) {
+      if (itemRes["dataExist"]) {
         var tableHeader = `
         <table class="table table-bordered align-middle">
       <thead>

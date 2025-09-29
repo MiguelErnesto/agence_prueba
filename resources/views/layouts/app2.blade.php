@@ -18,9 +18,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
-    <!-- Styles (Bootstrap + Material Design Theming) -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{-- Asume que compiled con Vite/Mix --}}
-
     <!-- Scripts -->
 
     <style>
@@ -179,11 +176,7 @@
     </div>
 
     @stack('page-js') {{-- Para scripts específicos de la página --}}
-    <script>
-        import * as bootstrap from 'bootstrap'; // Importa todo Bootstrap
 
-        window.bootstrap = bootstrap; // Asigna bootstrap a la ventana global (útil en algunos casos)
-    </script>
 </body>
 
 </html>
