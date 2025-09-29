@@ -180,11 +180,12 @@ export default class Consultores {
                       ${this.number_format(lucro)}
                   </td>
               </tr>`;
+
+            saldo_receita_liquida += receita_liquida;
+            saldo_custo_fixo += custo_fixo;
+            saldo_comissao += comissao;
+            saldo_lucro += lucro;
           }
-          saldo_receita_liquida += receita_liquida;
-          saldo_custo_fixo += custo_fixo;
-          saldo_comissao += comissao;
-          saldo_lucro += lucro;
         });
         tableFooter = `
             <tr>
