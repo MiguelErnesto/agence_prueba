@@ -27,7 +27,7 @@ export default class graficoPizza {
   };
 
   pizza = async () => {
-    await fetch("xml/data_pizza.xml")
+    await fetch("xml/data_pizza.xml?ts=" + Date.now())
       .then((response) => response.text())
       .then((xmlString) => {
         const parser = new DOMParser();

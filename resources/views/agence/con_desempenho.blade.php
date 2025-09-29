@@ -122,9 +122,9 @@
         @push('page-js')
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
-            <script async type="module" src="js/consultores.js"></script>
-            <script async type="module" src="js/grafico_barras.js"></script>
-            <script async type="module" src="js/grafico_pizza.js"></script>
+            <script async type="module" src="js/consultores.js?ts=" + Date.now()></script>
+            <script async type="module" src="js/grafico_barras.js?ts=" + Date.now()></script>
+            <script async type="module" src="js/grafico_pizza.js?ts=" + Date.now()></script>
 
             <script>
                 function moveOptions(fromId, toId) {

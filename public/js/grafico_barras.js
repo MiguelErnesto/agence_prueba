@@ -26,7 +26,7 @@ export default class graficoBarras {
   };
 
   graficoBarras = async () => {
-    await fetch("xml/data_line_bar.xml")
+    await fetch("xml/data_line_bar.xml?ts=" + Date.now())
       .then((response) => response.text())
       .then((xmlString) => {
         const parser = new DOMParser();
