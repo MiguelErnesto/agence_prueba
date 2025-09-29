@@ -10,7 +10,7 @@
 <category name="Ago2007" hoverText="Ago2007" /> 
 <category name="Set2007" hoverText="Set2007" /> 
 <categories>
-    <dataset seriesName="Ana Paula Fontes Martins Chiodaro" color="hsl(72, 70%, 50%)" numberPrefix="R$ ">
+    <dataset seriesName="Ana Paula Fontes Martins Chiodaro" color="hsl(60, 70%, 50%)" numberPrefix="R$ ">
     <set value="6897.6000976562" /> 
     <set value="7701.3601074219" /> 
     <set value="14864.159973145" /> 
@@ -21,7 +21,7 @@
     <set value="7097.7200317383" /> 
     <set value="8252.7700195312" /> 
   </dataset>
-    <dataset seriesName="Carlos Cezar Girão de Arruda" color="hsl(144, 70%, 50%)" numberPrefix="R$ ">
+    <dataset seriesName="Carlos Cezar Girão de Arruda" color="hsl(180, 70%, 50%)" numberPrefix="R$ ">
     <set value="0" /> 
     <set value="0" /> 
     <set value="0" /> 
@@ -32,7 +32,7 @@
     <set value="0" /> 
     <set value="0" /> 
   </dataset>
-    <dataset seriesName="Carlos Flávio Girão de Arruda" color="hsl(180, 70%, 50%)" numberPrefix="R$ ">
+    <dataset seriesName="Carlos Flávio Girão de Arruda" color="hsl(240, 70%, 50%)" numberPrefix="R$ ">
     <set value="19125" /> 
     <set value="25682" /> 
     <set value="42238.600097656" /> 
@@ -43,7 +43,7 @@
     <set value="41195.379943848" /> 
     <set value="74138.679992676" /> 
   </dataset>
-    <dataset seriesName="Carlos Henrique de Carvalho Filho" color="hsl(216, 70%, 50%)" numberPrefix="R$ ">
+    <dataset seriesName="Carlos Henrique de Carvalho Filho" color="hsl(300, 70%, 50%)" numberPrefix="R$ ">
     <set value="6699" /> 
     <set value="0" /> 
     <set value="12505.919921875" /> 
@@ -53,16 +53,5 @@
     <set value="0" /> 
     <set value="7035" /> 
     <set value="17291.560058594" /> 
-  </dataset>
-    <dataset seriesName="Renato Marcus Pereira" color="hsl(288, 70%, 50%)" numberPrefix="R$ ">
-    <set value="0" /> 
-    <set value="0" /> 
-    <set value="0" /> 
-    <set value="0" /> 
-    <set value="0" /> 
-    <set value="2640" /> 
-    <set value="0" /> 
-    <set value="7596.6599731445" /> 
-    <set value="15062.659973145" /> 
   </dataset>
 </graph>
