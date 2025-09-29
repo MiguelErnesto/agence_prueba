@@ -309,7 +309,7 @@ class AgenceController extends Controller
                     'totalConsultor' => $totalReceitaConsultor,
                 ];
 
-                $xmlMesesBarras .= '<categories>' . "\n";
+                $xmlMesesBarras .= '</categories>' . "\n";
                 $xmlBodyBarras .= '  </dataset>' . "\n";
             }
         }
