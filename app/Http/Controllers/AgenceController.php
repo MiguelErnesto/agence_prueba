@@ -165,7 +165,7 @@ class AgenceController extends Controller
         for ($i = 0; $i < $cantidad; $i++) {
             // Generar un color HSL girando el matiz (hue) entre 0 y 360 grados
             $hue = intval(($i * 360) / $cantidad);
-            $colores[] = "hsl($hue, 70%, 50%)"; // saturación 70%, luminosidad 50%
+            $colores[] = "hsl($hue, 70%, 50%)";
         }
 
         return $colores;
@@ -193,12 +193,60 @@ class AgenceController extends Controller
         return $abreviaturaMes . $ano;
     }
 
+    private function generarXmlPizzaData(
+        $datosGraficoPizza,
+        $totalGeneralReceita,
+        $colores
+    ) {
+        $xmlHeadPizza =
+            '<graph
+        caption="Participação na Receita"
+        bgColor="F1f1f1"
+        decimalPrecision="1"
+        showPercentageValues="1"
+        showNames="1"
+        numberPrefix=""
+        showValues="1"
+        showPercentageInLabel="1"
+        pieYScale="45"
+        pieBorderAlpha="40"
+        pieFillAlpha="70"
+        pieSliceDepth="15"
+        pieRadius="100"
+      >' . "\n";
+
+        $xmlBodyPizza = '';
+        foreach ($datosGraficoPizza as $index => $datos) {
+            $value = ($datos['totalConsultor'] * 100) / $totalGeneralReceita;
+            $xmlBodyPizza .=
+                '<set
+            value="' .
+                $value .
+                '"
+                name="' .
+                htmlspecialchars($datos['nombreConsultor']) .
+                '"
+                color="' .
+                $colores[$index] .
+                '"
+                numberPrefix="% "
+              /> ' .
+                "\n";
+        }
+        $xmlFootPizza = '</graph>' . "\n";
+
+        $xmlPizza = $xmlHeadPizza . $xmlBodyPizza . $xmlFootPizza;
+        return $xmlPizza;
+    }
+
     private function generarXmlGraficoData(
         array $datos,
         string $fechaInicio,
         string $fechaFin
     ) {
-        $xmlBody = '';
+        $datosGraficoPizza = [];
+
+        $xmlBodyBarras = '';
 
         $colores = $this->coloresParaConsultores(count($datos));
         $meses = $this->obtenerMesesEntreFechas(
@@ -207,12 +255,12 @@ class AgenceController extends Controller
             $fechaFin
         );
 
-        $xmlMeses = '';
+        $xmlMesesBarras = '';
+        $totalGeneralReceita = 0;
 
         foreach ($datos as $index => $dato) {
             if ($dato['dataExist']) {
-                //Datos por Consultores para cada mes involucrado en el periodo
-                $xmlBody .=
+                $xmlBodyBarras .=
                     '    <dataset seriesName="' .
                     htmlspecialchars($dato['no_usuario']) .
                     '" color="' .
@@ -220,10 +268,11 @@ class AgenceController extends Controller
                     '" numberPrefix="R$ ">' .
                     "\n";
 
-                $xmlMeses = '<categories>' . "\n";
+                $xmlMesesBarras = '<categories>' . "\n";
+                $totalReceitaConsultor = 0;
                 foreach ($meses as $mes) {
                     $annoMesPT = $this->formatoAnoMesPt($mes);
-                    $xmlMeses .=
+                    $xmlMesesBarras .=
                         '<category name="' .
                         $annoMesPT .
                         '" hoverText="' .
@@ -242,33 +291,51 @@ class AgenceController extends Controller
                         }
                         $receita_liquida = $valor - $total_imp_inc;
 
-                        $xmlBody .=
+                        $xmlBodyBarras .=
                             '    <set value="' .
                             $receita_liquida .
                             '" /> ' .
                             "\n";
                     } else {
-                        $xmlBody .= '    <set value="0" /> ' . "\n";
+                        $xmlBodyBarras .= '    <set value="0" /> ' . "\n";
                     }
+                    $totalGeneralReceita += $receita_liquida;
+                    $totalReceitaConsultor += $receita_liquida;
                 }
 
-                $xmlMeses .= '<categories>' . "\n";
-                $xmlBody .= '  </dataset>' . "\n";
+                $datosGraficoPizza[] = [
+                    'nombreConsultor' => $dato['no_usuario'],
+                    'totalConsultor' => $totalReceitaConsultor,
+                ];
+
+                $xmlMesesBarras .= '<categories>' . "\n";
+                $xmlBodyBarras .= '  </dataset>' . "\n";
             }
         }
 
-        $xmlHead =
+        $xmlHeadBarras =
             '<graph bgColor="F1f1f1" caption="Performance Comercial" subCaption="Janeiro de 2007 a Maio de 2007" showValues="0" divLineDecimalPrecision="2" formatNumberScale="2" limitsDecimalPrecision="2" PYAxisName="" SYAxisName="" decimalSeparator="," thousandSeparator="." SYAxisMaxValue="32000" PYAxisMaxValue="32000">' .
             "\n";
 
         $xmlFoot = '</graph>' . "\n";
 
-        $xmlAll = $xmlHead . $xmlMeses . $xmlBody . $xmlFoot;
+        $xmlGraficoData =
+            $xmlHeadBarras . $xmlMesesBarras . $xmlBodyBarras . $xmlFoot;
 
-        // Guardar el XML en un archivo
-        $nombreArchivo = 'productos_manual.xml';
-        // $rutaArchivo = storage_path('/' . $nombreArchivo);
-        $rutaArchivo = public_path('/charts/' . $nombreArchivo);
-        file_put_contents($rutaArchivo, $xmlAll);
+        $xmlPizzaData = $this->generarXmlPizzaData(
+            $datosGraficoPizza,
+            $totalGeneralReceita,
+            $colores
+        );
+
+        // Guardar el XML del Grafico
+        $nombreArchivo = 'data_line_bar.xml';
+        $rutaArchivo = public_path('/xml/' . $nombreArchivo);
+        file_put_contents($rutaArchivo, $xmlGraficoData);
+
+        // Guardar el XML de la Pizza
+        $nombreArchivo = 'data_pizza.xml';
+        $rutaArchivo = public_path('/xml/' . $nombreArchivo);
+        file_put_contents($rutaArchivo, $xmlPizzaData);
     }
 }

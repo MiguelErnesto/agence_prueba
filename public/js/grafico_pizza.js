@@ -26,56 +26,8 @@ export default class graficoPizza {
     });
   };
 
-  graficoPizza = async () => {
-    await fetch("charts/data_pizza.xml")
-      .then((response) => response.text())
-      .then((xmlString) => {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlString, "text/xml");
-
-        const categories = Array.from(xmlDoc.querySelectorAll("category")).map(
-          (cat) => cat.getAttribute("name")
-        );
-        const datasets = Array.from(xmlDoc.querySelectorAll("dataset")).map(
-          (datasetElement) => {
-            return {
-              label: datasetElement.getAttribute("seriesName"),
-              backgroundColor: datasetElement.getAttribute("color"),
-              data: Array.from(datasetElement.querySelectorAll("set")).map(
-                (set) => parseInt(set.getAttribute("value"))
-              ),
-            };
-          }
-        );
-
-        const ctx = document.getElementById("graficoPizza").getContext("2d");
-
-        if (this.myChartPizza) {
-          this.myChartPizza.destroy();
-        }
-
-        this.myChartPizza = new Chart(ctx, {
-          type: "pie",
-          data: {
-            labels: categories,
-            datasets: datasets,
-          },
-          options: {
-            responsive: true, // para que se ajuste al contenedor
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-              },
-            },
-          },
-        });
-      })
-      .catch((err) => console.error("Error cargando XML:", err));
-  };
-
   pizza = async () => {
-    await fetch("charts/data_pizza.xml")
+    await fetch("xml/data_pizza.xml")
       .then((response) => response.text())
       .then((xmlString) => {
         const parser = new DOMParser();
@@ -90,7 +42,7 @@ export default class graficoPizza {
           labels.push(sets[i].getAttribute("name"));
           data.push(parseFloat(sets[i].getAttribute("value")));
           // Añadimos # al color y lo ponemos en formato CSS válido
-          backgroundColors.push("#" + sets[i].getAttribute("color"));
+          backgroundColors.push(sets[i].getAttribute("color"));
         }
 
         const ctx = document.getElementById("graficoPizza").getContext("2d");

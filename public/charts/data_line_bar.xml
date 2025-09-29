@@ -1,76 +1,14 @@
-<graph
-  bgColor="F1f1f1"
-  caption="Performance Comercial"
-  subCaption="Janeiro de 2007 a Maio de 2007"
-  showValues="0"
-  divLineDecimalPrecision="2"
-  formatNumberScale="2"
-  limitsDecimalPrecision="2"
-  PYAxisName=""
-  SYAxisName=""
-  decimalSeparator=","
-  thousandSeparator="."
-  SYAxisMaxValue="32000"
-  PYAxisMaxValue="32000"
->
-
-  <categories>
-  <category name="Jan" hoverText="Janeiro" /> 
-  <category name="Fev" hoverText="Fevereiro" /> 
-  <category name="Mar" hoverText="Mar�o" /> 
-  <category name="Abr" hoverText="Abril" /> 
-  <category name="Mai" hoverText="Maio" /> 
-  </categories>
-
-  <dataset seriesName="Carlos Fl�vio" color="#FF6600" numberPrefix="R$ ">
-  <set value="24000" /> 
-  <set value="30004" /> 
-  <set value="14000" /> 
-  <set value="23000" /> 
-  <set value="16000" /> 
+<graph bgColor="F1f1f1" caption="Performance Comercial" subCaption="Janeiro de 2007 a Maio de 2007" showValues="0" divLineDecimalPrecision="2" formatNumberScale="2" limitsDecimalPrecision="2" PYAxisName="" SYAxisName="" decimalSeparator="," thousandSeparator="." SYAxisMaxValue="32000" PYAxisMaxValue="32000">
+<categories>
+<category name="Jan2007" hoverText="Jan2007" /> 
+<category name="Fev2007" hoverText="Fev2007" /> 
+<categories>
+    <dataset seriesName="Ana Paula Fontes Martins Chiodaro" color="hsl(0, 70%, 50%)" numberPrefix="R$ ">
+    <set value="6897.6000976562" /> 
+    <set value="7701.3601074219" /> 
   </dataset>
-
-    <dataset seriesName="Ana Paula" color="#660000" numberPrefix="R$ ">
-  <set value="5008" /> 
-  <set value="4100" /> 
-  <set value="1300" /> 
-  <set value="1800" /> 
-  <set value="2200" /> 
+    <dataset seriesName="Carlos Flávio Girão de Arruda" color="hsl(180, 70%, 50%)" numberPrefix="R$ ">
+    <set value="19125" /> 
+    <set value="25682" /> 
   </dataset>
-
-    <dataset seriesName="Carlos Henrique" color="#000099" numberPrefix="R$ ">
-  <set value="15004" /> 
-  <set value="24001" /> 
-  <set value="23000" /> 
-  <set value="18000" /> 
-  <set value="22000" /> 
-  </dataset>
-
-    <dataset seriesName="Renato Marcus" color="#006600" numberPrefix="R$ ">
-  <set value="5400" /> 
-  <set value="4100" /> 
-  <set value="1300" /> 
-  <set value="1800" /> 
-  <set value="2200" /> 
-  </dataset>
-
-  <dataset
-    lineThickness="3"
-    seriesName="Custo Fixo M�dio"
-    numberPrefix="R$ "
-    parentYAxis="S"
-    color="FF0000"
-    anchorBorderColor="FF8000"
-  >
-  <set value="2000" /> 
-  <set value="2000" /> 
-  <set value="2000" /> 
-  <set value="2000" /> 
-  <set value="2000" /> 
-
-
-  </dataset>
-
-
-
-  </graph>
+</graph>

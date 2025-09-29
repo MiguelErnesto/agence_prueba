@@ -1,0 +1,46 @@
+<graph
+        caption="Participação na Receita"
+        bgColor="F1f1f1"
+        decimalPrecision="1"
+        showPercentageValues="1"
+        showNames="1"
+        numberPrefix=""
+        showValues="1"
+        showPercentageInLabel="1"
+        pieYScale="45"
+        pieBorderAlpha="40"
+        pieFillAlpha="70"
+        pieSliceDepth="15"
+        pieRadius="100"
+      >
+<set
+            value="13.049996397845"
+                name="Ana Paula Fontes Martins Chiodaro"
+                color="hsl(0, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+<set
+            value="5.4413544540811"
+                name="Carlos Cezar Girão de Arruda"
+                color="hsl(36, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+<set
+            value="54.564940710484"
+                name="Carlos Flávio Girão de Arruda"
+                color="hsl(72, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+<set
+            value="12.365525798511"
+                name="Carlos Henrique de Carvalho Filho"
+                color="hsl(108, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+<set
+            value="14.578182639079"
+                name="Renato Marcus Pereira"
+                color="hsl(144, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+</graph>
