@@ -297,6 +297,7 @@ class AgenceController extends Controller
                             '" /> ' .
                             "\n";
                     } else {
+                        $receita_liquida = 0;
                         $xmlBodyBarras .= '    <set value="0" /> ' . "\n";
                     }
                     $totalGeneralReceita += $receita_liquida;
