@@ -39,7 +39,7 @@ class AgenceController extends Controller
 
         $consultores = $this->consultores();
 
-        $this->generarXmlGraficoData($result, $fechaInicio, $fechaFin);
+        $this->generarXmlData($result, $fechaInicio, $fechaFin);
 
         return response()->json([
             'result' => $result,
@@ -239,7 +239,32 @@ class AgenceController extends Controller
         return $xmlPizza;
     }
 
-    private function generarXmlGraficoData(
+    private function xmlPromedio($meses, $datos)
+    {
+        $xmlPromedio =
+            '<dataset seriesName="Custo Fixo Medio" color="#000000">' . "\n";
+        foreach ($meses as $mes) {
+            $custoMes = 0;
+            $cantidadConsultoresMes = 0;
+            foreach ($datos as $index => $dato) {
+                if ($dato['dataExist']) {
+                    foreach ($meses as $m) {
+                        if (isset($dato['data'][$m])) {
+                            $custoMes += $dato['custo_fixo'];
+                            $cantidadConsultoresMes++;
+                        }
+                    }
+                    $promedioMes = $custoMes / $cantidadConsultoresMes;
+                    $xmlPromedio .=
+                        '<set value="' . $promedioMes . '" />' . "\n";
+                }
+            }
+        }
+        $xmlPromedio .= '</dataset> ' . "\n";
+        return $xmlPromedio;
+    }
+
+    private function generarXmlData(
         array $datos,
         string $fechaInicio,
         string $fechaFin
@@ -314,14 +339,20 @@ class AgenceController extends Controller
             }
         }
 
+        $xmlPromedio = $this->xmlPromedio($meses, $datos);
+
         $xmlHeadBarras =
             '<graph bgColor="F1f1f1" caption="Performance Comercial" subCaption="Janeiro de 2007 a Maio de 2007" showValues="0" divLineDecimalPrecision="2" formatNumberScale="2" limitsDecimalPrecision="2" PYAxisName="" SYAxisName="" decimalSeparator="," thousandSeparator="." SYAxisMaxValue="32000" PYAxisMaxValue="32000">' .
             "\n";
 
-        $xmlFoot = '</graph>' . "\n";
+        $xmlFootBarras = '</graph>' . "\n";
 
         $xmlGraficoData =
-            $xmlHeadBarras . $xmlMesesBarras . $xmlBodyBarras . $xmlFoot;
+            $xmlHeadBarras .
+            $xmlMesesBarras .
+            $xmlBodyBarras .
+            $xmlPromedio .
+            $xmlFootBarras;
 
         $xmlPizzaData = $this->generarXmlPizzaData(
             $datosGraficoPizza,
