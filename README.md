@@ -36,4 +36,5 @@ Relatorio: Se muestran también los consultores que no tienen datos.
 De los gráficos
 - Se muestran solamente los consultores con datos en el período.
 - Los gráficos no están exactamente igual al ejemplo de la tarea pues según el formato de los xml parecen ser generados con una librería bajo licencia y se usó una librería gratis en su lugar.
+- Por la razón anterior el Custo Fixo Medio no se muestra como una linea sino como una barra en color negro al final de cada mes.
 - Los botones Gráfico y Pizza mostrarán los últimos datos generados hasta que se generen nuevos datos.
