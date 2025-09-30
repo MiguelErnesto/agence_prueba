@@ -9,8 +9,7 @@ Horas de trabajo 20 horas
 - preparación del ambiente de trabajo
 - desarrollo
 - pruebas
-- hosting
-
+- dominio y hosting
 
 
 DESCRIPCION DE LA TAREA
@@ -21,17 +20,20 @@ Base de Datos
 
 Tecnología utilizada
 Backend: 
-Laravel con php 8.4 inicialmente, pero hubo que hacer un downgrade a la version 8.3 por requerimientos del hosting.
-Arquitectura Modelo-Vista-Controlodor, aislando la capa de datos, métodos y datos para mayor seguridad del sistema.
+- Laravel 
+- php 8.4 inicialmente
+- hubo que hacer un downgrade a php 8.3 por requerimientos del hosting.
+- mySql 8.0.40
+- Arquitectura Modelo-Vista-Controlodor, aislando la capa de datos, métodos y datos para mayor seguridad del sistema.
  
-Frontend
-Motor de plantillas Blade
-Bootstrap5
-Material Design
-Responsive
-JavaScript
-Css
-Html
+Frontend:
+- Motor de plantillas Blade
+- Bootstrap5
+- Material Design
+- Responsive
+- JavaScript
+- Css
+- Html
  
 De la aplicación
 Relatorio: Se muestran también los consultores que no tienen datos.
