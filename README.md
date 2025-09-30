@@ -43,3 +43,19 @@ De los gráficos
 - Los gráficos no están exactamente igual al ejemplo de la tarea pues según el formato de los xml parecen ser generados con una librería bajo licencia y se usó una librería gratis en su lugar.
 - Por la razón anterior el Custo Fixo Medio no se muestra como una linea sino como una barra en color negro al final de cada mes.
 - Los botones Gráfico y Pizza mostrarán los últimos datos generados hasta que se generen nuevos datos.
+
+Rutas
+- Las rutas están definidas en web.php. Ahi hay dos rutas definidas '/', que carga la página principal, y '/relatorio', que se llama al hacer click en Relatorio.
+
+Controlodor
+- En el controlador app/Http/Controllers/AgenceController.php están implementados los métodos del sistema
+
+ Métodos
+ - conDesempenho: realiza la consulta para obtener los consultores y los devuelve a la vista 
+ - relatorio: Realiza el cálculo para la tabla de relatores y llama el método generarXmlData para generar el xml con los datos obtenidos.
+ -  Existen además varios métodos privados usados internamente por los métodos públicos para mejor organización y modulación del código (obtenerMesesEntreFechas, coloresParaConsultores, formatoAnoMesPt, generarXmlPizzaData, xmlPromedio, generarXmlData)
+
+ JavaScript
+ - public/js/consultores.js Hace la llamada al método AgenceController::relatorio y procesa los datos para mostrar las tablas con los datos de los Consultores.
+ - public/js/grafico_barras.js Carga el xml para el gráfico de barras generado con los datos del Relatorio.
+ - public/js/grafico_pizza.js  Carga el xml para el gráfico pizza generado con los datos del Relatorio.
