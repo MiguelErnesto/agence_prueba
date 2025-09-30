@@ -1,7 +1,9 @@
 DETALLES DE LA TAREA
 
 Publicado en: https://medevep.gt.tc/
+
 GitHub: https://github.com/MiguelErnesto/agence_prueba.git
+
 Horas de trabajo 20 horas
 - análisis
 - preparación del ambiente de trabajo
