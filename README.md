@@ -36,7 +36,7 @@ Frontend:
 - Html
  
 De la aplicación
-Relatorio: Se muestran también los consultores que no tienen datos.
+- Relatorio: Se muestran también los consultores que no tienen datos.
 
 De los gráficos
 - Se muestran solamente los consultores con datos en el período.
