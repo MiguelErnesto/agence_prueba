@@ -14,27 +14,33 @@
         pieRadius="100"
       >
 <set
-            value="15.277123340407"
-                name="Ana Paula Fontes Martins Chiodaro"
+            value="0.18264477069673"
+                name="Carlos Cezar Girão de Arruda"
                 color="hsl(0, 70%, 50%)"
                 numberPrefix="% "
               /> 
 <set
-            value="6.3699820750599"
-                name="Carlos Cezar Girão de Arruda"
-                color="hsl(60, 70%, 50%)"
-                numberPrefix="% "
-              /> 
-<set
-            value="63.877054359471"
+            value="66.741762767437"
                 name="Carlos Flávio Girão de Arruda"
-                color="hsl(120, 70%, 50%)"
+                color="hsl(36, 70%, 50%)"
                 numberPrefix="% "
               /> 
 <set
-            value="14.475840225062"
+            value="13.169839102146"
                 name="Carlos Henrique de Carvalho Filho"
-                color="hsl(180, 70%, 50%)"
+                color="hsl(72, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+<set
+            value="15.962259875297"
+                name="Ana Paula Fontes Martins Chiodaro"
+                color="hsl(108, 70%, 50%)"
+                numberPrefix="% "
+              /> 
+<set
+            value="3.9434934844233"
+                name="Renato Marcus Pereira"
+                color="hsl(144, 70%, 50%)"
                 numberPrefix="% "
               /> 
 </graph>

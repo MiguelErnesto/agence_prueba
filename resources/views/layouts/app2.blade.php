@@ -168,9 +168,13 @@
         </main>
 
         {{-- @include('layouts.partials.footer') --}}
-        <div class="container">
-            <p>&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. Todos los derechos reservados.</p>
-        </div>
+
+        <footer class="text-center py-5" style='background-color:rgb(250, 250, 250);'>
+            <div class="container px-5">
+                <div class="text-black small">
+                    <div class="mb-2">&copy; {{ date('Y') }} Your Website 2023. All Rights Reserved.</div>
+                </div>
+            </div>
         </footer>
 
     </div>

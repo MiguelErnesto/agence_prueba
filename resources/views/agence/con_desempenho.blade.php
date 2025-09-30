@@ -73,7 +73,8 @@
                     </div>
 
                     <!-- Botones mover -->
-                    <div class="col-md-2 d-flex flex-column justify-content-center align-items-center gap-3 mb-0">
+                    <div
+                        class="col-md-2 d-flex d-flex flex-row flex-md-column justify-content-center align-items-center gap-3 mb-0">
                         <button type="button" class="btn btn-primary btn-move" onclick="moveOptions('list1', 'list2')"
                             aria-label="Agregar">
                             &gt;&gt; </button>
